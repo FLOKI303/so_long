@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 23:45:31 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/15 18:07:22 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:51:33 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ static int	is_valid_first_last_line(char *str, int length)
 	return (1);
 }
 
+static int	help_check(char *line, int length, int prev_length, int *i)
+{
+	if (prev_length != length || !check_first_and_last_1(line, length)
+		|| (((*i)++ == 0 || line[length - 1] != '\n')
+			&& !is_valid_first_last_line(line, length)))
+		return (0);
+	return (1);
+}
+
 int	check_rectangle(int fd)
 {
 	char	*line;
@@ -58,9 +67,7 @@ int	check_rectangle(int fd)
 	i = 0;
 	while (line)
 	{
-		if (prev_length != length || !check_first_and_last_1(line, length)
-			|| ((i++ == 0 || line[length - 1] != '\n')
-				&& !is_valid_first_last_line(line, length)))
+		if (!help_check(line, length, prev_length, &i))
 			return (free(line), free(prev_line), 0);
 		prev_line = ft_strdup(line);
 		line = get_next_line(fd);

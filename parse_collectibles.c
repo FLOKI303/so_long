@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:12:03 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/15 18:36:31 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:58:18 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,16 @@ int	check_collectibles(int fd)
 		length = ft_strlen(line);
 		if (line[length - 1] != '\n')
 			break ;
-		if (i != 0)
+		if (i++ != 0)
 		{
-			j = 0;
-			while (line[j])
+			j = -1;
+			while (line[++j])
 			{
 				if (j != 0 && j != length - 2)
-				{
 					if (line[j] == 'C')
 						return (free(line), 1);
-				}
-				j++;
 			}
 		}
-		else
-			i++;
 	}
 	return (free(line), 0);
 }

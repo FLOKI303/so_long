@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 19:41:33 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/15 18:26:15 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:51:13 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,19 @@ int	is_valid_extention(char *file_name)
 		return (0);
 }
 
+void	reopen(int fd, char *name)
+{
+	close(fd);
+	fd = open(name, O_RDONLY);
+}
+
 int	parse_map(int fd, char *name)
 {
 	if (!fd)
 		return (0);
 	if (!check_rectangle(fd))
 		return (0);
-	close(fd);
-	fd = open(name, O_RDONLY);
+	reopen(fd, name);
 	if (!check_collectibles(fd))
 		return (0);
 	return (1);
