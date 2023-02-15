@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:02:01 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/15 13:26:14 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:16:53 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_strdup(const char *src);
 int		is_valid_extention(char *file_name);
-int		parse_map(int fd);
+int		parse_map(int fd, char *name);
 int		check_rectangle(int fd);
+int		check_collectibles(int fd);
 
 #endif

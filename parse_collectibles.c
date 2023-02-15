@@ -1,39 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_main.c                                     :+:      :+:    :+:   */
+/*   parse_collectibles.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 18:29:24 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/15 18:16:58 by aait-mal         ###   ########.fr       */
+/*   Created: 2023/02/15 18:12:03 by aait-mal          #+#    #+#             */
+/*   Updated: 2023/02/15 18:36:31 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	main(int ac, char **av)
+int	check_collectibles(int fd)
 {
-	int	fd;
+	char	*line;
+	int		length;
+	int		i;
+	int		j;
 
-	if (ac != 2)
-		return (ft_putstr_fd("Error", 2), 1);
-	else
+	i = 0;
+	while (1)
 	{
-		if (!is_valid_extention(av[1]))
-			return (ft_putstr_fd("Bad extention !", 2), 1);
-		else
+		line = get_next_line(fd);
+		length = ft_strlen(line);
+		if (line[length - 1] != '\n')
+			break ;
+		if (i != 0)
 		{
-			fd = open(av[1], O_RDONLY);
-			if (fd == -1)
-				return (ft_putstr_fd("File does not exist", 2), 1);
-			else
+			j = 0;
+			while (line[j])
 			{
-				if (!parse_map(fd, av[1]))
-					return (ft_putstr_fd("\nMap Error !", 2), 1);
-				else
-					return (ft_putstr_fd("\nGood map", 1), 1);
+				if (j != 0 && j != length - 2)
+				{
+					if (line[j] == 'C')
+						return (free(line), 1);
+				}
+				j++;
 			}
 		}
+		else
+			i++;
 	}
+	return (free(line), 0);
 }
