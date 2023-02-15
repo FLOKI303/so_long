@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 18:02:01 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/15 13:26:14 by aait-mal         ###   ########.fr       */
+/*   Created: 2023/02/14 19:41:33 by aait-mal          #+#    #+#             */
+/*   Updated: 2023/02/15 12:49:36 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "so_long.h"
 
-# include<unistd.h>
-# include<stdlib.h>
-# include<mlx.h>
-# include<fcntl.h>
-# include<stdio.h>
-# include"get_next_line_dir/get_next_line.h"
+int	is_valid_extention(char *file_name)
+{
+	int	length;
 
-void	ft_putstr_fd(char *s, int fd);
-char	*ft_strdup(const char *src);
-int		is_valid_extention(char *file_name);
-int		parse_map(int fd);
-int		check_rectangle(int fd);
+	length = ft_strlen(file_name);
+	if (length >= 5 && file_name[length - 1] == 'r'
+		&& file_name[length - 2] == 'e' && file_name[length - 3] == 'b'
+		&& file_name[length - 4] == '.')
+		return (1);
+	else
+		return (0);
+}
 
-#endif
+int	parse_map(int fd)
+{
+	if (!fd)
+		return (0);
+	if (!check_rectangle(fd))
+		return (0);
+	return (1);
+}
