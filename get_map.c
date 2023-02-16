@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:19:53 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/16 19:11:55 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:36:40 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,23 @@ static int	count_lines(int fd, int *map_length)
 	return (free(line), free(prev_line), lines_count);
 }
 
-static char	**fill_map(int fd, int lines_count, char **map)
+int	check_line(char *str, int length)
+{
+	int	i;
+
+	i = 0;
+	while (i < length)
+	{
+		if (str[i] != '1' && str[i] != '0'
+			&& str[i] != 'C' && str[i] != 'E'
+			&& str[i] != 'P')
+				return (0);
+		i++;
+	}
+	return (1);
+}
+
+static char	**fill_map(int fd, int lines_count, char **map, int length)
 {
 	char	*line;
 	int		i;
@@ -52,6 +68,8 @@ static char	**fill_map(int fd, int lines_count, char **map)
 	while (lines_count--)
 	{
 		line = get_next_line(fd);
+		if (!check_line(line, length))
+			return (free(line), NULL);
 		map[i] = ft_strdup(line);
 		i++;
 	}
@@ -70,6 +88,6 @@ char	**get_map(int fd, char *name, int *length, int *heigth)
 	*heigth = lines_count;
 	reopen(fd, name);
 	map = malloc((lines_count + 1) * sizeof(map));
-	map = fill_map(fd, lines_count, map);
+	map = fill_map(fd, lines_count, map, *length);
 	return (map);
 }

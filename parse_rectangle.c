@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 23:45:31 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/16 19:16:44 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:27:03 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,6 @@ static int	is_valid_first_last_line(char *str, int length)
 	}
 	return (1);
 }
-
-// static int	help_check(char *line, int length, int prev_length, int *i)
-// {
-// 	if (prev_length != length || !check_first_and_last_1(line, length)
-// 		|| (((*i)++ == 0 || line[length - 1] != '\n')
-// 			&& !is_valid_first_last_line(line, length)))
-// 		return (0);
-// 	return (1);
-// }
 
 int	check_rectangle(struct s_map map)
 {

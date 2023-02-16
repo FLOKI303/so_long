@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 19:41:33 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/16 19:20:16 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:26:44 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	display_map(struct s_map map)
 	int		i;
 
 	i = 0;
+	ft_printf("=======MAP=======\n");
 	while (map.map[i])
 	{
 		ft_printf("%s", map.map[i]);
