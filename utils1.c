@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 19:41:33 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/15 18:51:13 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:47:32 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,34 @@ void	reopen(int fd, char *name)
 	fd = open(name, O_RDONLY);
 }
 
+void	display_map(struct s_map map)
+{
+	int		i;
+
+	i = 0;
+	while (map.map[i])
+	{
+		printf("%s", map.map[i]);
+		i++;
+	}
+	printf("\nMap Heigth : %d\n", map.heigth);
+	printf("Map Length : %d\n", map.length);
+}
+
 int	parse_map(int fd, char *name)
 {
+	struct s_map	map;
+
 	if (!fd)
 		return (0);
-	if (!check_rectangle(fd))
-		return (0);
-	reopen(fd, name);
-	if (!check_collectibles(fd))
-		return (0);
+	map.map = get_map(fd, name, &map.length, &map.heigth);
+	if (!map.map)
+		return (free(map.map), 0);
+	display_map(map);
+	// if (!check_rectangle(map.map, map.height, map.length))
+	// 	return (0);
+	// reopen(fd, name);
+	// if (!check_collectibles(fd))
+	// 	return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:29:24 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/15 18:16:58 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:18:28 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	main(int ac, char **av)
 			else
 			{
 				if (!parse_map(fd, av[1]))
-					return (ft_putstr_fd("\nMap Error !", 2), 1);
+					return (ft_putstr_fd("Map Error !", 2), 1);
 				else
-					return (ft_putstr_fd("\nGood map", 1), 1);
+					return (ft_putstr_fd("Good map", 1), 1);
 			}
 		}
 	}
