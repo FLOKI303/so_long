@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_functions.c                                  :+:      :+:    :+:   */
+/*   ft_putchars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 19:35:46 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/16 19:22:43 by aait-mal         ###   ########.fr       */
+/*   Created: 2022/11/11 10:38:19 by aait-mal          #+#    #+#             */
+/*   Updated: 2022/11/11 16:12:53 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include"ft_printf.h"
 
-char	*ft_strdup(const char *src)
+void	ft_putchar_fd(char c, int fd, int *length)
 {
-	char	*copy;
-	size_t	i;
-	size_t	len;
+	write(fd, &c, 1);
+	(*length)++;
+}
 
-	i = 0;
-	copy = malloc((ft_strlen((char *)src) + 1) * sizeof(char));
-	if (!copy)
-		return (0);
-	len = ft_strlen((char *)src);
-	while (i < len)
+void	ft_putstr_fd(char *s, int fd, int *length)
+{
+	if (!s)
 	{
-		copy[i] = (char)src[i];
-		i++;
+		ft_putstr_fd("(null)", 1, length);
+		return ;
 	}
-	copy[i] = '\0';
-	return (copy);
+	while (*s)
+	{
+		ft_putchar_fd(*s, fd, length);
+		s++;
+	}
 }

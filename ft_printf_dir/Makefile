@@ -5,37 +5,32 @@
 #                                                     +:+ +:+         +:+      #
 #    By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/13 18:00:45 by aait-mal          #+#    #+#              #
-#    Updated: 2023/02/16 19:25:22 by aait-mal         ###   ########.fr        #
+#    Created: 2022/11/10 19:08:54 by aait-mal          #+#    #+#              #
+#    Updated: 2022/11/11 16:12:51 by aait-mal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = so_long
-SRC =	$(wildcard *.c)
-GET_NEXT_LINE_SRC = $(wildcard ./get_next_line_dir/*.c)
-OBJ = $(SRC:.c=.o)
-HEADER = so_long.h
-PRINTF = ft_printf_dir
+NAME = libftprintf.a
+MANDATORY_SRC = ft_printf.c ft_printf_utils.c ft_putchars.c ft_putnbrs.c \
+
+OBJECT = $(MANDATORY_SRC:.c=.o)
+
 CC = cc
+
 FLAGS = -Wall -Wextra -Werror
-MLFLAGS = -lmlx -framework OpenGL -framework AppKit
 
-all : printf $(NAME)
+all : $(NAME)
 
-$(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(MLFLAGS) $(OBJ) $(GET_NEXT_LINE_SRC) $(PRINTF)/libftprintf.a -o $(NAME)
+$(NAME) : $(OBJECT)
+	ar rc $(NAME) $(OBJECT)
 
-%.o: %.c $(HEADER)
-	$(CC) $(FLAGS) -Imlx -c $<
-
-printf :
-	make -C $(PRINTF)
+%.o: %.c ft_printf.h
+	$(CC) $(FLAGS) -c $<
 
 clean :
-	make fclean -C $(PRINTF)
-	rm -rf $(OBJ)
+	rm -f $(OBJECT)
 
 fclean : clean
-	rm -rf $(NAME)
+	rm -f $(NAME)
 
 re : fclean all

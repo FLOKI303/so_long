@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_functions.c                                  :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 19:35:46 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/16 19:22:43 by aait-mal         ###   ########.fr       */
+/*   Created: 2022/11/10 19:09:42 by aait-mal          #+#    #+#             */
+/*   Updated: 2022/11/20 16:48:07 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include"ft_printf.h"
 
-char	*ft_strdup(const char *src)
+int	ft_printf(const char *string, ...)
 {
-	char	*copy;
-	size_t	i;
-	size_t	len;
+	va_list	arg;
+	int		length;
 
-	i = 0;
-	copy = malloc((ft_strlen((char *)src) + 1) * sizeof(char));
-	if (!copy)
-		return (0);
-	len = ft_strlen((char *)src);
-	while (i < len)
+	length = 0;
+	va_start(arg, string);
+	while (*string)
 	{
-		copy[i] = (char)src[i];
-		i++;
+		if (*string == '%')
+		{
+			string++;
+			if (!(*string))
+				break ;
+			check_option(string, arg, &length);
+		}
+		else
+			ft_putchar_fd(*string, 1, &length);
+		string++;
 	}
-	copy[i] = '\0';
-	return (copy);
+	va_end(arg);
+	return (length);
 }
