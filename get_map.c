@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:19:53 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/16 19:36:40 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/02/23 15:20:59 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static int	count_lines(int fd, int *map_length)
 	length = ft_strlen(line);
 	*map_length = length - 1;
 	prev_length = length;
-	if (!line)
-		return (0);
 	lines_count = 0;
 	while (line)
 	{
@@ -38,7 +36,7 @@ static int	count_lines(int fd, int *map_length)
 			prev_length--;
 		lines_count++;
 	}
-	if (prev_line[prev_length - 1] == '\n')
+	if (line && prev_line[prev_length - 1] == '\n')
 		return (free(line), free(prev_line), 0);
 	return (free(line), free(prev_line), lines_count);
 }
@@ -53,7 +51,7 @@ int	check_line(char *str, int length)
 		if (str[i] != '1' && str[i] != '0'
 			&& str[i] != 'C' && str[i] != 'E'
 			&& str[i] != 'P')
-				return (0);
+			return (0);
 		i++;
 	}
 	return (1);

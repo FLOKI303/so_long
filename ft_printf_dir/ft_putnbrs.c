@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:18:31 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/16 19:22:11 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:35:18 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_putnbr_fd(int nb, int fd, int *length)
 		ft_putchar_fd('-', fd, length);
 		ft_putnbr_fd(-nb, fd, length);
 	}
-	else if (nb >= 0 && nb <= 9)
+	else if (nb <= 9)
 	{
 		buff = nb + 48;
 		ft_putchar_fd(buff, fd, length);
@@ -42,7 +42,7 @@ void	ft_putnbr_unsiged_fd(unsigned int nb, int fd, int *length)
 {
 	char	buff;
 
-	if (nb >= 0 && nb <= 9)
+	if (nb <= 9)
 	{
 		buff = nb + 48;
 		ft_putchar_fd(buff, fd, length);
@@ -61,7 +61,7 @@ void	ft_putnbr_base(size_t nbr, char *base, int	*length, int C)
 	base_len = ft_strlen_printf(base);
 	if (C != 'p')
 		nbr = (unsigned int)nbr;
-	if (nbr >= 0 && nbr < base_len)
+	if (nbr < base_len)
 		ft_putchar_fd(base[nbr], 1, length);
 	else
 	{

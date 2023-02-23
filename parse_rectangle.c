@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 23:45:31 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/16 19:27:03 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:38:29 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_rectangle(struct s_map map)
 
 	i = 0;
 	map1 = map.map;
-	while (map.map[i])
+	while (map1[i])
 	{
 		if ((i == 0 || map1[i][map.length] != '\n')
 			&& !is_valid_first_last_line(map1[i], map.length))

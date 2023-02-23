@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:02:01 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/16 19:22:52 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/02/23 15:14:54 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include<stdlib.h>
 # include<mlx.h>
 # include<fcntl.h>
-# include<stdio.h>
 # include"get_next_line_dir/get_next_line.h"
 # include"ft_printf_dir/ft_printf.h"
 
@@ -34,6 +33,9 @@ void	display_map(struct s_map map);
 int		parse_map(int fd, char *name);
 char	**get_map(int fd, char *name, int *length, int *heigth);
 int		check_rectangle(struct s_map map);
-int		check_collectibles(int fd);
+int		check_collectibles(struct s_map map);
+int		check_player_exit(struct s_map map, char c);
+int		check_exit(struct s_map map);
+int		check_player(struct s_map map);
 
 #endif
