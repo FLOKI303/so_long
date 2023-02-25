@@ -6,7 +6,7 @@
 #    By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/13 18:00:45 by aait-mal          #+#    #+#              #
-#    Updated: 2023/02/16 19:25:22 by aait-mal         ###   ########.fr        #
+#    Updated: 2023/02/23 17:35:50 by aait-mal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,10 +32,11 @@ printf :
 	make -C $(PRINTF)
 
 clean :
-	make fclean -C $(PRINTF)
+	make clean -C $(PRINTF)
 	rm -rf $(OBJ)
 
 fclean : clean
+	make fclean -C $(PRINTF)
 	rm -rf $(NAME)
 
 re : fclean all

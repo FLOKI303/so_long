@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 23:45:31 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/23 14:38:29 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:49:03 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int	check_rectangle(struct s_map map)
 	{
 		if ((i == 0 || map1[i][map.length] != '\n')
 			&& !is_valid_first_last_line(map1[i], map.length))
-			return (free(map1), 0);
+			return (0);
 		if (!check_first_and_last_1(map1[i], map.length))
-			return (free(map1), 0);
+			return (0);
 		i++;
 	}
 	return (1);

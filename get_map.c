@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:19:53 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/23 15:20:59 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:11:45 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	count_lines(int fd, int *map_length)
 	int		lines_count;
 
 	line = get_next_line(fd);
+	prev_line = ft_strdup(line);
 	length = ft_strlen(line);
 	*map_length = length - 1;
 	prev_length = length;
@@ -28,7 +29,7 @@ static int	count_lines(int fd, int *map_length)
 	while (line)
 	{
 		if (length != prev_length)
-			return (0);
+			return (free(line), free(prev_line), 0);
 		prev_line = ft_strdup(line);
 		line = get_next_line(fd);
 		length = ft_strlen(line);
@@ -86,6 +87,8 @@ char	**get_map(int fd, char *name, int *length, int *heigth)
 	*heigth = lines_count;
 	reopen(fd, name);
 	map = malloc((lines_count + 1) * sizeof(map));
+	if (!map)
+		return (0);
 	map = fill_map(fd, lines_count, map, *length);
 	return (map);
 }
