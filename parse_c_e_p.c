@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:12:03 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/25 16:02:24 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/04 11:28:42 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	check_collectibles(struct s_map map)
 	char	**map1;
 	int		count;
 
-	i = 0;
+	i = -1;
 	count = 0;
 	map1 = map.map;
-	while (map1[i])
+	while (map1[++i])
 	{
 		j = 0;
 		if (i != 0 && map1[i][map.length] == '\n')
@@ -37,7 +37,6 @@ int	check_collectibles(struct s_map map)
 				j++;
 			}
 		}
-		i++;
 	}
 	return (count);
 }

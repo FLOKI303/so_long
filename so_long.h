@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:02:01 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/25 17:26:10 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/04 11:42:53 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ struct	s_map {
 	int		collect_number;
 };
 
+struct	s_ij {
+	int	i;
+	int	j;
+};
+
 char	*ft_strdup(const char *src);
 int		is_valid_extention(char *file_name);
 void	reopen(int fd, char *name);
@@ -38,6 +43,8 @@ int		check_collectibles(struct s_map map);
 int		check_player_exit(struct s_map map, char c);
 int		check_exit(struct s_map map);
 int		check_player(struct s_map map);
+int		*get_pos(struct s_map map, char c, char **map1);
+char	**copy_map(struct s_map map);
 int		*get_pos(struct s_map map, char c, char **map1);
 int		find_path(struct s_map map, int collect_number);
 

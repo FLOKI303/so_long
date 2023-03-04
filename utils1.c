@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 19:41:33 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/25 16:06:43 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/04 11:46:18 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,34 @@ void	reopen(int fd, char *name)
 	fd = open(name, O_RDONLY);
 }
 
+char	**copy_map(struct s_map map)
+{
+	char	**map1;
+	int		i;
+	int		j;
+
+	i = 0;
+	map1 = malloc((map.heigth + 1) * sizeof(map1));
+	if (!map1)
+		return (0);
+	while (map.map[i])
+	{
+		j = 0;
+		map1[i] = malloc((map.length + 1) * sizeof(char *));
+		if (!map1[i])
+			return (0);
+		while (map.map[i][j])
+		{
+			map1[i][j] = map.map[i][j];
+			j++;
+		}
+		map1[i][j] = '\0';
+		i++;
+	}
+	map1[i] = 0;
+	return (map1);
+}
+
 void	display_map(struct s_map map)
 {
 	int		i;
@@ -42,7 +70,8 @@ void	display_map(struct s_map map)
 		ft_printf("%s", map.map[i]);
 		i++;
 	}
-	ft_printf("\nMap Heigth : %d\n", map.heigth);
+	ft_printf("\n=================\n");
+	ft_printf("Map Heigth : %d\n", map.heigth);
 	ft_printf("Map Length : %d\n", map.length);
 	ft_printf("=================\n");
 }
@@ -64,8 +93,5 @@ int	parse_map(int fd, char *name)
 	if (!find_path(map, map.collect_number))
 		return (0);
 	display_map(map);
-	// reopen(fd, name);
-	// if (!check_collectibles(fd))
-	// 	return (0);
 	return (1);
 }

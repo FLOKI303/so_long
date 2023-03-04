@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 13:13:32 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/25 17:44:32 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/04 11:43:42 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	*get_pos(struct s_map map, char c, char **map1)
 	while (map1[i])
 	{
 		j = 0;
-		while(j < map.length)
+		while (j < map.length)
 		{
 			if (map1[i][j] == c)
 			{
@@ -40,38 +40,10 @@ int	*get_pos(struct s_map map, char c, char **map1)
 	return (0);
 }
 
-char	**copy_map(struct s_map map)
-{
-	char	**map1;
-	int		i;
-	int		j;
-
-	i = 0;
-	map1 = malloc((map.heigth + 1) * sizeof(map1));
-	if (!map1)
-		return (0);
-	while (map.map[i])
-	{
-		j = 0;
-		map1[i] = malloc((map.length + 1) * sizeof(char *));
-		if (!map1[i])
-			return (0);
-		while (map.map[i][j])
-		{
-			map1[i][j] = map.map[i][j];
-			j++;
-		}
-		map1[i][j] = '\0';
-		i++;
-	}
-	map1[i] = 0;
-	return (map1);
-}
-
-int	help_find_path(char **map, int i, int j, int *e_pos)
+static int	help_find_path(char **map, int i, int j, int *e_pos)
 {
 	if (i == e_pos[0] && j == e_pos[1])
-		return(1);
+		return (1);
 	if (map[i][j] != '1')
 	{
 		map[i][j] = '1';
@@ -87,19 +59,27 @@ int	help_find_path(char **map, int i, int j, int *e_pos)
 	return (0);
 }
 
-int	find_path(struct s_map map, int collect_number)
+static void	block_all_previous_collect(char **map1, int i, int **all_collect)
 {
-	int		*player_pos;
+	int	j;
+
+	j = 0;
+	while (j < i)
+	{
+		map1[all_collect[j][0]][all_collect[j][1]] = '0';
+		j++;
+	}
+}
+
+static int	help_find_path_collect(struct s_map map, int *player_pos,
+							int *exit_pos, int collect_number)
+{
 	int		*collect_pos;
 	int		**all_collect;
-	int		*exit_pos;
 	char	**map1;
-	int		i;
-	int		j;
 	int		collect_fix;
+	int		i;
 
-	player_pos = get_pos(map, 'P', map.map);
-	exit_pos = get_pos(map, 'E', map.map);
 	map1 = copy_map(map);
 	collect_fix = collect_number;
 	all_collect = malloc(collect_number * sizeof(all_collect));
@@ -113,18 +93,24 @@ int	find_path(struct s_map map, int collect_number)
 		all_collect[i] = malloc(2 * sizeof(int));
 		all_collect[i][0] = collect_pos[0];
 		all_collect[i][1] = collect_pos[1];
-		ft_printf("x : %d, y : %d\n", collect_pos[0], collect_pos[1]);
 		if (!help_find_path(map1, player_pos[0], player_pos[1], collect_pos))
 			return (0);
 		map1 = copy_map(map);
-		i++;
-		j = 0;
-		while (j < i)
-		{
-			map1[all_collect[j][0]][all_collect[j][1]] = '0';
-			j++;
-		}
+		block_all_previous_collect(map1, ++i, all_collect);
 	}
+	return (1);
+}
+
+int	find_path(struct s_map map, int collect_number)
+{
+	int		*player_pos;
+	int		*exit_pos;
+	char	**map1;
+
+	player_pos = get_pos(map, 'P', map.map);
+	exit_pos = get_pos(map, 'E', map.map);
+	if (!help_find_path_collect(map, player_pos, exit_pos, collect_number))
+		return (0);
 	map1 = copy_map(map);
 	if (help_find_path(map1, player_pos[0], player_pos[1], exit_pos))
 		return (1);
