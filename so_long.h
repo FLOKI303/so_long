@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:02:01 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/04 11:42:53 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/04 12:28:00 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ int		*get_pos(struct s_map map, char c, char **map1);
 char	**copy_map(struct s_map map);
 int		*get_pos(struct s_map map, char c, char **map1);
 int		find_path(struct s_map map, int collect_number);
+void	print_map(int fd, char *name);
 
 #endif

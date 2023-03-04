@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 19:41:33 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/04 11:46:18 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/04 12:18:09 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	display_map(struct s_map map)
 	int		i;
 
 	i = 0;
+	if (!map.map)
+		return ;
 	ft_printf("=======MAP=======\n");
 	while (map.map[i])
 	{
@@ -86,12 +88,10 @@ int	parse_map(int fd, char *name)
 	if (!map.map)
 		return (0);
 	map.collect_number = check_collectibles(map);
-	ft_printf("number of collectibles : %d\n", map.collect_number);
 	if (!check_rectangle(map) || !map.collect_number
 		|| check_exit(map) != 1 || check_player(map) != 1)
 		return (0);
 	if (!find_path(map, map.collect_number))
 		return (0);
-	display_map(map);
 	return (1);
 }

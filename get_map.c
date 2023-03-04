@@ -6,11 +6,17 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:19:53 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/04 11:54:12 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/04 11:59:42 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	check_last_line(char *line, int length, int *prev_length)
+{
+	if (line && line[length - 1] != '\n')
+			(*prev_length)--;
+}
 
 static int	count_lines(int fd, int *map_length)
 {
@@ -33,8 +39,7 @@ static int	count_lines(int fd, int *map_length)
 		prev_line = ft_strdup(line);
 		line = get_next_line(fd);
 		length = ft_strlen(line);
-		if (line && line[length - 1] != '\n')
-			prev_length--;
+		check_last_line(line, length, &prev_length);
 		lines_count++;
 	}
 	if (line && prev_line[prev_length - 1] == '\n')

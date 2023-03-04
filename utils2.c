@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_main.c                                     :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 18:29:24 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/04 12:28:14 by aait-mal         ###   ########.fr       */
+/*   Created: 2023/03/04 12:17:22 by aait-mal          #+#    #+#             */
+/*   Updated: 2023/03/04 12:28:47 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	main(int ac, char **av)
+void	print_map(int fd, char *name)
 {
-	int				fd;
+	void			*mlx;
+	void			*mlx_win;
+	int				size_of_block;
+	struct s_map	map;
 
-	if (ac != 2)
-		return (ft_printf("Error"), 1);
-	else
-	{
-		if (!is_valid_extention(av[1]))
-			return (ft_printf("Bad extention !"), 1);
-		else
-		{
-			fd = open(av[1], O_RDONLY);
-			if (fd == -1)
-				return (ft_printf("File does not exist"), 1);
-			else
-			{
-				if (!parse_map(fd, av[1]))
-					return (ft_printf("Map Error !"), 1);
-				else
-					print_map(fd, av[1]);
-			}
-		}
-	}
-	return (0);
+	reopen(fd, name);
+	map.map = get_map(fd, name, &map.length, &map.heigth);
+	display_map(map);
+	size_of_block = 60;
+	mlx = mlx_init();
+	mlx_win = mlx_new_window(mlx, map.length * size_of_block,
+			map.heigth * size_of_block, "So Long");
+	mlx_loop(mlx);
 }
