@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:02:01 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/06 11:57:56 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:29:33 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ typedef struct s_map {
 	int		length;
 	int		collect_number;
 	void	*wall;
+	void	*player;
+	void	*collectible;
+	void	*exit;
+	void	*space;
 }				t_map;
 
 char	*ft_strdup(const char *src);
