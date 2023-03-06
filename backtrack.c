@@ -6,13 +6,13 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 13:13:32 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/04 11:43:42 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/06 10:38:59 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	*get_pos(struct s_map map, char c, char **map1)
+int	*get_pos(t_map map, char c, char **map1)
 {
 	int	*pos;
 	int	i;
@@ -71,7 +71,7 @@ static void	block_all_previous_collect(char **map1, int i, int **all_collect)
 	}
 }
 
-static int	help_find_path_collect(struct s_map map, int *player_pos,
+static int	help_find_path_collect(t_map map, int *player_pos,
 							int *exit_pos, int collect_number)
 {
 	int		*collect_pos;
@@ -101,7 +101,7 @@ static int	help_find_path_collect(struct s_map map, int *player_pos,
 	return (1);
 }
 
-int	find_path(struct s_map map, int collect_number)
+int	find_path(t_map map, int collect_number)
 {
 	int		*player_pos;
 	int		*exit_pos;

@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 23:45:31 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/23 17:49:03 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/06 10:38:59 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	is_valid_first_last_line(char *str, int length)
 	return (1);
 }
 
-int	check_rectangle(struct s_map map)
+int	check_rectangle(t_map map)
 {
 	int		i;
 	char	**map1;

@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 19:41:33 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/04 12:18:09 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/06 10:38:59 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	reopen(int fd, char *name)
 	fd = open(name, O_RDONLY);
 }
 
-char	**copy_map(struct s_map map)
+char	**copy_map(t_map map)
 {
 	char	**map1;
 	int		i;
@@ -59,7 +59,7 @@ char	**copy_map(struct s_map map)
 	return (map1);
 }
 
-void	display_map(struct s_map map)
+void	display_map(t_map map)
 {
 	int		i;
 
@@ -80,7 +80,7 @@ void	display_map(struct s_map map)
 
 int	parse_map(int fd, char *name)
 {
-	struct s_map	map;
+	t_map	map;
 
 	if (!fd)
 		return (0);
