@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 13:13:32 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/07 13:02:07 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:59:25 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,13 @@ static int	help_find_path_collect(t_map map, int *player_pos,
 		all_collect[i][0] = collect_pos[0];
 		all_collect[i][1] = collect_pos[1];
 		if (!help_find_path(map1, player_pos[0], player_pos[1], collect_pos))
-			return (free_all(map1), free_int(all_collect, collect_fix), free(collect_pos), 0);
+			return (free_all(map1), free_int(all_collect, i), free(collect_pos), 0);
 		free(collect_pos);
 		free_all(map1);
 		map1 = copy_map(map);
 		block_all_previous_collect(map1, ++i, all_collect);
 	}
-	return (free_all(map1), free_int(all_collect, collect_fix), 1);
+	return (free_all(map1), free_int(all_collect, i), 1);
 }
 
 int	find_path(t_map map, int collect_number)
