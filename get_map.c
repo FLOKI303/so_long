@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:19:53 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/06 11:20:08 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:39:41 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,32 @@ void	check_last_line(char *line, int length, int *prev_length)
 static int	count_lines(int fd, int *map_length)
 {
 	char	*line;
-	char	*prev_line;
-	int		length;
-	int		prev_length;
+	unsigned int		length;
 	int		lines_count;
+	int		check;
 
-	line = get_next_line(fd);
-	length = ft_strlen(line);
-	*map_length = length - 1;
-	prev_length = length;
+	check = 1;
 	lines_count = 0;
-	while (line)
+	line = NULL;
+	while (line || check)
 	{
-		if (length != prev_length)
-			return (0);
-		prev_line = ft_strdup(line);
 		line = get_next_line(fd);
-		length = ft_strlen(line);
-		check_last_line(line, length, &prev_length);
+		if (!line)
+			return (0);
+		if (check)
+		{
+			length = ft_strlen(line);
+			*map_length = length - 1;
+			check = 0;
+		}
+		if (ft_strlen(line) == length - 1 && line[length - 2] != '\n')
+			break ;
+		else if (length != ft_strlen(line))
+			return (free(line), 0);
+		free(line);
 		lines_count++;
 	}
-	if (!line && (prev_length && prev_line[prev_length - 1] == '\n'))
-		return (free(line), free(prev_line), 0);
-	return (free(line), free(prev_line), lines_count);
+	return (free(line), lines_count + 1);
 }
 
 int	check_line(char *str, int length)
@@ -65,12 +68,17 @@ int	check_line(char *str, int length)
 static char	**fill_map(int fd, int lines_count, char **map, int length)
 {
 	char	*line;
+	int		check;
 	int		i;
 
 	i = 0;
+	check  = 0;
 	while (lines_count--)
 	{
+		if (check)
+			free(line);
 		line = get_next_line(fd);
+		check = 1;
 		if (!check_line(line, length))
 			return (free(line), NULL);
 		map[i] = ft_strdup(line);
@@ -93,6 +101,7 @@ char	**get_map(int fd, char *name, int *length, int *heigth)
 	map = malloc((lines_count + 1) * sizeof(map));
 	if (!map)
 		return (0);
+	ft_printf("|%d|", *length);
 	map = fill_map(fd, lines_count, map, *length);
 	return (map);
 }

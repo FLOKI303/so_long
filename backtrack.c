@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 13:13:32 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/06 10:38:59 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/07 13:02:07 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	*get_pos(t_map map, char c, char **map1)
 		}
 		i++;
 	}
-	return (0);
+	return (free(pos), NULL);
 }
 
 static int	help_find_path(char **map, int i, int j, int *e_pos)
@@ -57,6 +57,34 @@ static int	help_find_path(char **map, int i, int j, int *e_pos)
 			return (1);
 	}
 	return (0);
+}
+
+void	free_all(char **p)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	while (p[i])
+	{
+		tmp = p[i];
+		free(tmp);
+		i++;
+	}
+	free(p);
+}
+
+void	free_int(int **p, int sz)
+{
+	int		i;
+
+	i = 0;
+	while (i < sz)
+	{
+		free(p[i]);
+		i++;
+	}
+	free(p);
 }
 
 static void	block_all_previous_collect(char **map1, int i, int **all_collect)
@@ -94,11 +122,13 @@ static int	help_find_path_collect(t_map map, int *player_pos,
 		all_collect[i][0] = collect_pos[0];
 		all_collect[i][1] = collect_pos[1];
 		if (!help_find_path(map1, player_pos[0], player_pos[1], collect_pos))
-			return (0);
+			return (free_all(map1), free_int(all_collect, collect_fix), free(collect_pos), 0);
+		free(collect_pos);
+		free_all(map1);
 		map1 = copy_map(map);
 		block_all_previous_collect(map1, ++i, all_collect);
 	}
-	return (1);
+	return (free_all(map1), free_int(all_collect, collect_fix), 1);
 }
 
 int	find_path(t_map map, int collect_number)
@@ -110,9 +140,9 @@ int	find_path(t_map map, int collect_number)
 	player_pos = get_pos(map, 'P', map.map);
 	exit_pos = get_pos(map, 'E', map.map);
 	if (!help_find_path_collect(map, player_pos, exit_pos, collect_number))
-		return (0);
+		return (free(player_pos), free(exit_pos), 0);
 	map1 = copy_map(map);
 	if (help_find_path(map1, player_pos[0], player_pos[1], exit_pos))
-		return (1);
-	return (0);
+		return (free(player_pos), free(exit_pos), free_all(map1), 1);
+	return (free(player_pos), free(exit_pos), free_all(map1), 0);
 }

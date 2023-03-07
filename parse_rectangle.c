@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 23:45:31 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/06 10:38:59 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:04:06 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,14 @@ static int	is_valid_first_last_line(char *str, int length)
 int	check_rectangle(t_map map)
 {
 	int		i;
-	char	**map1;
 
 	i = 0;
-	map1 = map.map;
-	while (map1[i])
+	while (map.map[i])
 	{
-		if ((i == 0 || map1[i][map.length] != '\n')
-			&& !is_valid_first_last_line(map1[i], map.length))
+		if ((i == 0 || map.map[i][map.length] != '\n')
+			&& !is_valid_first_last_line(map.map[i], map.length))
 			return (0);
-		if (!check_first_and_last_1(map1[i], map.length))
+		if (!check_first_and_last_1(map.map[i], map.length))
 			return (0);
 		i++;
 	}
