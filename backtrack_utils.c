@@ -1,40 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_main.c                                     :+:      :+:    :+:   */
+/*   backtrack_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 18:29:24 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/08 10:46:37 by aait-mal         ###   ########.fr       */
+/*   Created: 2023/03/08 10:40:45 by aait-mal          #+#    #+#             */
+/*   Updated: 2023/03/08 10:45:14 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	main(int ac, char **av)
+void	store_previous_collects(int	**all_collect, int *collect_pos, int i)
 {
-	int				fd;
+	all_collect[i] = malloc(2 * sizeof(int));
+	all_collect[i][0] = collect_pos[0];
+	all_collect[i][1] = collect_pos[1];
+}
 
-	if (ac != 2)
-		return (ft_printf("Error"), 1);
-	else
-	{
-		if (!is_valid_extention(av[1]))
-			return (ft_printf("Bad extention !"), 1);
-		else
-		{
-			fd = open(av[1], O_RDONLY);
-			if (fd == -1)
-				return (ft_printf("File does not exist"), 1);
-			else
-			{
-				if (!parse_map(fd, av[1]))
-					return (ft_printf("Map Error !"), 1);
-				else
-					print_map(fd, av[1]);
-			}
-		}
-	}
-	return (0);
+void	free_three(char **map1, int **all_collect, int *collect_pos, int i)
+{
+	free_all(map1);
+	free_int(all_collect, i);
+	free(collect_pos);
 }

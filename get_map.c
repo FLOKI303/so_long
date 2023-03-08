@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:19:53 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/07 12:39:41 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/08 11:02:32 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	check_last_line(char *line, int length, int *prev_length)
 
 static int	count_lines(int fd, int *map_length)
 {
-	char	*line;
-	unsigned int		length;
-	int		lines_count;
-	int		check;
+	unsigned int	length;
+	char			*line;
+	int				lines_count;
+	int				check;
 
 	check = 1;
 	lines_count = 0;
@@ -34,11 +34,7 @@ static int	count_lines(int fd, int *map_length)
 		if (!line)
 			return (0);
 		if (check)
-		{
-			length = ft_strlen(line);
-			*map_length = length - 1;
-			check = 0;
-		}
+			check_first_time(&length, map_length, &check, line);
 		if (ft_strlen(line) == length - 1 && line[length - 2] != '\n')
 			break ;
 		else if (length != ft_strlen(line))
@@ -72,7 +68,7 @@ static char	**fill_map(int fd, int lines_count, char **map, int length)
 	int		i;
 
 	i = 0;
-	check  = 0;
+	check = 0;
 	while (lines_count--)
 	{
 		if (check)
@@ -101,7 +97,6 @@ char	**get_map(int fd, char *name, int *length, int *heigth)
 	map = malloc((lines_count + 1) * sizeof(map));
 	if (!map)
 		return (0);
-	ft_printf("|%d|", *length);
 	map = fill_map(fd, lines_count, map, *length);
 	return (map);
 }

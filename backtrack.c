@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 13:13:32 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/07 15:59:25 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:45:11 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,34 +59,6 @@ static int	help_find_path(char **map, int i, int j, int *e_pos)
 	return (0);
 }
 
-void	free_all(char **p)
-{
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	while (p[i])
-	{
-		tmp = p[i];
-		free(tmp);
-		i++;
-	}
-	free(p);
-}
-
-void	free_int(int **p, int sz)
-{
-	int		i;
-
-	i = 0;
-	while (i < sz)
-	{
-		free(p[i]);
-		i++;
-	}
-	free(p);
-}
-
 static void	block_all_previous_collect(char **map1, int i, int **all_collect)
 {
 	int	j;
@@ -118,11 +90,9 @@ static int	help_find_path_collect(t_map map, int *player_pos,
 	{
 		map1[exit_pos[0]][exit_pos[1]] = '1';
 		collect_pos = get_pos(map, 'C', map1);
-		all_collect[i] = malloc(2 * sizeof(int));
-		all_collect[i][0] = collect_pos[0];
-		all_collect[i][1] = collect_pos[1];
+		store_previous_collects(all_collect, collect_pos, i);
 		if (!help_find_path(map1, player_pos[0], player_pos[1], collect_pos))
-			return (free_all(map1), free_int(all_collect, i), free(collect_pos), 0);
+			return (free_three(map1, all_collect, collect_pos, i), 0);
 		free(collect_pos);
 		free_all(map1);
 		map1 = copy_map(map);

@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 19:35:46 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/02/23 17:56:58 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:46:21 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,32 @@ char	*ft_strdup(const char *src)
 	}
 	copy[i] = '\0';
 	return (copy);
+}
+
+void	free_all(char **p)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	while (p[i])
+	{
+		tmp = p[i];
+		free(tmp);
+		i++;
+	}
+	free(p);
+}
+
+void	free_int(int **p, int sz)
+{
+	int		i;
+
+	i = 0;
+	while (i < sz)
+	{
+		free(p[i]);
+		i++;
+	}
+	free(p);
 }

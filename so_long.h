@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:02:01 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/06 16:29:33 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/08 11:09:45 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	reopen(int fd, char *name);
 void	display_map(t_map map);
 int		parse_map(int fd, char *name);
 char	**get_map(int fd, char *name, int *length, int *heigth);
+void	check_first_time(unsigned int *length,
+			int *map_length, int *check, char *line);
 int		check_rectangle(t_map map);
 int		check_collectibles(t_map map);
 int		check_player_exit(t_map map, char c);
@@ -46,7 +48,14 @@ int		check_player(t_map map);
 int		*get_pos(t_map map, char c, char **map1);
 char	**copy_map(t_map map);
 int		*get_pos(t_map map, char c, char **map1);
+void	store_previous_collects(int	**all_collect, int *collect_pos, int i);
+void	free_three(char **map1, int **all_collect, int *collect_pos, int i);
 int		find_path(t_map map, int collect_number);
 void	print_map(int fd, char *name);
+void	free_all(char **p);
+void	free_int(int **p, int sz);
+void	put_elements_ws(t_map map, void **wall, void **space, void *mlx);
+void	put_elements_pe(t_map map, void **player, void **exit, void *mlx);
+void	put_elements_co(t_map map, void **collectible, void *mlx);
 
 #endif
