@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:02:01 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/09 17:17:29 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:14:21 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_map {
 	char	**map;
 	int		heigth;
 	int		length;
+	int		fix_collect_number;
 	int		collect_number;
 	void	*wall;
 	void	*player;
@@ -68,5 +69,13 @@ void	update_map_left(t_map map, void **player,
 			void **exit, int *collect_number);
 void	update_map_rigth(t_map map, void **player,
 			void **exit, int *collect_number);
+void	check_collect_number_up(t_map map, void **player,
+			void **exit_pos, int *player_pos);
+void	check_collect_number_down(t_map map, void **player,
+			void **exit_pos, int *player_pos);
+void	check_collect_number_left(t_map map, void **player,
+			void **exit_pos, int *player_pos);
+void	check_collect_number_rigth(t_map map, void **player,
+			void **exit_pos, int *player_pos);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 12:17:22 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/09 17:21:45 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:04:11 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	print_map(int fd, char *name)
 	reopen(fd, name);
 	map.map = get_map(fd, name, &map.length, &map.heigth);
 	check_collectibles(map, &map.collect_number);
+	map.fix_collect_number = map.collect_number;
 	display_map(map);
 	size_of_block = 60;
 	map.mlx = mlx_init();
