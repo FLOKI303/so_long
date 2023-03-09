@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 19:41:33 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/07 12:33:11 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:54:07 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	parse_map(int fd, char *name)
 	map.map = get_map(fd, name, &map.length, &map.heigth);
 	if (!map.map)
 		return (0);
-	map.collect_number = check_collectibles(map);
+	check_collectibles(map, &map.collect_number);
 	if (!check_rectangle(map) || !map.collect_number
 		|| check_exit(map) != 1 || check_player(map) != 1)
 		return (0);

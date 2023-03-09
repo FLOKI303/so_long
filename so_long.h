@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:02:01 by aait-mal          #+#    #+#             */
-/*   Updated: 2023/03/08 11:09:45 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:17:29 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_map {
 	void	*collectible;
 	void	*exit;
 	void	*space;
+	void	*mlx;
+	void	*mlx_win;
 }				t_map;
 
 char	*ft_strdup(const char *src);
@@ -41,7 +43,7 @@ char	**get_map(int fd, char *name, int *length, int *heigth);
 void	check_first_time(unsigned int *length,
 			int *map_length, int *check, char *line);
 int		check_rectangle(t_map map);
-int		check_collectibles(t_map map);
+int		check_collectibles(t_map map, int *collect_number);
 int		check_player_exit(t_map map, char c);
 int		check_exit(t_map map);
 int		check_player(t_map map);
@@ -57,5 +59,14 @@ void	free_int(int **p, int sz);
 void	put_elements_ws(t_map map, void **wall, void **space, void *mlx);
 void	put_elements_pe(t_map map, void **player, void **exit, void *mlx);
 void	put_elements_co(t_map map, void **collectible, void *mlx);
+void	print_elements(t_map map, void *mlx, void *mlx_win);
+void	update_map_up(t_map map, void **player,
+			void **exit, int *collect_number);
+void	update_map_down(t_map map, void **player,
+			void **exit, int *collect_number);
+void	update_map_left(t_map map, void **player,
+			void **exit, int *collect_number);
+void	update_map_rigth(t_map map, void **player,
+			void **exit, int *collect_number);
 
 #endif
